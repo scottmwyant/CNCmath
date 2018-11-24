@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MEcalc</title>
+  <link rel="stylesheet" href="styles/bootstrap.css">
+  <link rel="stylesheet" href="styles/site.css">
+  <link rel="stylesheet" href="styles/markdown.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <style>  
+    
+    main{
+      margin: 3rem auto;
+      max-width: 1000px;
+    }
+
+  </style>
+
+</head>
+<body class="container-fluid">
+  
+  <header class="row">
+      <div class="col-auto"><a href="index.html"><h1>ME<i>calc</i></h1></a></div>
+      <div class="col"><p>A lightweight web app for CNC programmers</p></div>
+  </header>
+  
+  <!-- Main container -->
+  <main class="markdown">
+ 
+    <div class="row">
+      <div class="col">
+        <h1>Welcome to the Documentation Page</h1>
+        <p>This is where we'll cover some of the finer details about the calculators in the app.  If you're looking for even <i>more</i> technical, developer-level documentation, head over to the repository on <a href="https://github.com/scottmwyant/MEcalc" target="_blank">GitHub</a>.</p>
+        <h2 id="ImpliedUnits" class="mt-5">Implied Units</h2>
+        <ul>
+          <li>Angles are assumed to be in degrees (180).  Optionally use radians by inlcuding <i>rad</i> with the input (ex. 3.14159rad).</li>
+          <li>Lengths are assumed to be in inches (ex. .23622).  Optionally use millimeters by including <i>mm</i> with the input (ex. 6mm).</li>
+          <li>Feed greater than 0.2 is assumed to be inches per minute, otherwise, inches per revolution.</li>
+          <li>Speed greater than 500 is assumed to be rpm, otherwise, surface feet per minute.</li>
+        </ul>
+        <p>Some of the input fields use <i>implied units</i>.  A length input for example, is assumed to be given in inches.  If you would like to input a length measured in millimeters, just include <i>mm</i> after the number (no space).  Example: <i>.23622</i> or <i>6mm</i>.  Regardless of which is given, the results of the calculation will be output in imperial units.</p>
+        <br>
+        <p>The logic for implied units is slightly more sophisticated when dealing with feed and speed inputs.  Feed may be stated in <i>inches per revolution</i> or <i>inches per minute</i>. Speed may be stated in <i>surface feet per minute</i> or <i>revolutions per mintue</i>.  The default unit for these fields is dynamic; the unit is assumed based on the magnitude of the input. It is assumed that when <i>Speed = 1500</i> the unit is rpm, not surface feet.  Similarly, feed of 8.4 is assumed to be inches per minute, not inches per rev.</p>
+        
+        <h2 id="UnitCircle">The Unit Circle</h2>
+        <p>Enter an angle and optionally, a scale factor (a unitless length).  The <i>unit circle</i>'s name implies that the radius of the circle is 1 unit, however, the length input scales the radius of the circle.</p>
+        <br>
+        <p>Note that when no scale factor is used, the cosine and sine components respectively show the fraction of the hypotnuse length that is projected onto the horizontal and vertical axes.</p>
+        <br>
+        <p>Related reading: <a href="https://en.wikipedia.org/wiki/Unit_circle" target="_blank">wikipedia.org/wiki/Unit_circle</a>.</p> 
+        
+        <h2 id="FeedAndSpeed">Feed and Speed</h2>
+        <p>The input boxes in this section use <i>implied units</i>.  See the section above for details on data input.</p>
+        <br>
+        <p>The simplest calculation in this section requires an rpm input and a feed input.  A calculation can be made with just these two values to express the feed in the "other" unit.  If inches per minute is given, inches per rev is calculated and the other way around.  Additional calculations will requirem more input.  When surface speed (sfm) is given along with a feedrate for example, a diameter is also needed before the result will be displayed.</p>
+
+        <h2 id="RotaryPositioning4">3 +1 Axis Positioning</h2>
+        <p>This section applies to milling platforms equiped with a rotary table, sometimes called a "tombstone".  Both A-axis (vertical machines) and B-axis (horizontal machines) rotary tables are in scope.  The result of the calculation and the graphical output will be tailored for the configuration selected, but the underlying mathematics is the same for both cases.</p>
+        <br>
+        <p>It is imperative to understand the inputs and how to interpret the result:</p>
+        <br>
+        <p><strong>Rotary Axis</strong> - this is where you select the machine's configuration.  The calculation is done for either: a vertical mill outfit with an A-axis, or a horizontal mill outfit with a B-axis.  Once the configuration is selected, the angular position of the axis is needed; that is the second input.</p>
+        <br>
+        <p><strong>Location of Axis</strong> - there are two components to this input.  We need to know where the center of rotation is located in the machine's working envelope.  These two input values are components of a vector from machine-zero to the center of rotation.</p>
+        <br>
+        <p><strong>Axis to Point</strong> - The two values needed here are components of a vector starting at the center of rotation and ending at some point of interest (a fixture, a part, a certain feature on a part, etc).</p>
+        <br>
+        <p><strong>Result</strong> - The result is the vector from machine-zero to the point of interest,  after the rotation has been applied.</p>
+
+        <h2 class="mt-5">Attributions</h2>
+        <p>A special thanks to the folks running <a href="https://thenounproject.com/">thenounproject.com</a> and to the contributing artists: </p>
+        <br>
+        <ul>
+          <li><a href="https://thenounproject.com/search/?q=drill%20bit&i=170363" target="_blank">drill bit</a> by Darius Lau from the Noun Project</li>
+          <li><a href="https://thenounproject.com/search/?q=documentation&i=192334" target="_blank">documentation</a>  by Arthur Shlain from the Noun Project</li>
+        </ul>
+      </div>
+    </div>
+    
+  </main>      
+
+  <footer class="row">
+    <div class="col">
+      <a href="https://github.com/scottmwyant/MEcalc" target="_blank">Contribute to this project on GitHub</a>
+    </div>
+  </footer>  
+</body>
+</html>
