@@ -1,4 +1,4 @@
-# ME*calc*
+# CNC math
 A lightweight web app for CNC programmers.
 
 
@@ -6,3 +6,4 @@ A lightweight web app for CNC programmers.
 
 - Helical milling
 - 3 +2axis positioning
+- Length of drill point / tool lead
