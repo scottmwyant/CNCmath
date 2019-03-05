@@ -57,13 +57,20 @@
       padding-bottom: 0.3em;
     }
     div.input-group-append span.input-group-text{
-      background-color: ivory;
-      color: #24292e;
+      background: var(--app-calculation);
       font-family: monospace;
     }
     form div.input-group{
       margin-top: .75rem;
       margin-bottom: .75rem;
+    }
+    div.input-group.output-only div.input-group-append{
+      /* 
+        When there is no input element in the group cancel the -1 margin on the
+         .input-group-append because the adjacent element is .input-group-prepend
+         which also has a -1 margin to comp for the 1px border.
+       */
+      margin-left: 0px;
     }
 
     @media (max-width: 576px) {
@@ -133,7 +140,7 @@
                 </div>
                 
                 <!-- Result -->
-                <div class="input-group">
+                <div class="input-group output-only">
                   <div class="input-group-prepend">
                     <span class="input-group-text">Tip Length</span>
                   </div>
@@ -168,7 +175,7 @@
           <div class="row">
 
             <!-- Unit Circle Applet -->
-            <div class="col-md mx-auto" style="max-width: 400px;">  
+            <div class="col-md mx-auto my-auto" style="max-width: 400px;">  
                 
               <!-- Unit circle input -->
               <form>
@@ -189,7 +196,7 @@
                   <input id="myLength" type="text" class="form-control" placeholder="1">
                 </div>
 
-                <div class="input-group">
+                <div class="input-group output-only">
                   <div class="input-group-prepend">
                     <span class="input-group-text">Cos, Sin</span>
                   </div>
@@ -285,7 +292,6 @@
     <section id="RotaryPositioning4">
     <div class="row">
       <div class="col">
-
         <h2>4th Axis Positioning <a class="helpLink" href="#RotaryPositioning4" onclick="app.helpToggle(3)">help</a></h2>
         <div id="helpBox3" class="helpBox">
           <p>Four and five axis mills can create complicated geometries, but in many applications, the rotary is used only for positioning the part.  In these applications, it's not necessary to rely on CAD/CAM every step of the way.  As long as know know where the axis is located and where your point is relative to the axis, calculating a rotational transformation is trivial.</p>
@@ -293,67 +299,59 @@
           <p>The calculated result is the location of the point relative to machine zero, after rotation is applied.</p>
           <br>
           <p>Full documentation <a target="_blank" href="doc.html#RotaryPositioning4">here</a>.</p>
-        </div>                  
-          
-        <div class="row">
-          <div class="col mx-auto" style="max-width: 800px;"> 
-            <div class="row">
-              
-              <form class="col-md mx-auto" style="max-width: 600px;">
+        </div>                          
+      </div>
+    </div>
     
-                <!-- Axis Configuration -->
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Rotary axis</span>
-                  </div>
-                  <select class="form-control" id="axisLabel">
-                    <option selected="selected">A</option>
-                    <option>B</option>
-                  </select>
-                  <input id="axisAngle" type="text" class="form-control" placeholder="α">
-                </div>
-      
-                <!-- Machine Zero to Center-of-Rotation  -->
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Location of axis</span>
-                  </div>
-                  <input id="TranslationAxis1" type="text" class="form-control" placeholder="Y">
-                  <input id="TranslationAxis2" type="text" class="form-control" placeholder="Z">
-                </div>
-      
-                <!-- Center-of-Rotation to the Point-of-Interest -->
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Axis to point</span>
-                  </div>
-                  <input id="PointAxis1" type="text" class="form-control" placeholder="Y">
-                  <input id="PointAxis2" type="text" class="form-control" placeholder="Z">
-                </div>
+    <div class="row mx-auto" style="max-width: 800px;">
+      <div class="col-md mx-auto my-auto"> 
+        <form style="max-width: 600px;">
 
-                <div id="myDiv" class="input-group d-sm-flex d-block">
-                  <div class="input-group-prepend d-sm-flex d-block">
-                    <span class="input-group-text">Result</span>
-                  </div>
-                  <div class="input-group-append" style="display: block; flex: 1 1 auto;">
-                    <span id="outputRotation" class="input-group-text" style="justify-content: center;">&lt X, Y, Z &gt</span>
-                  </div>
-                </div>
-    
-              </form>  
-              
-              <div class="col-auto mx-auto">
-                  <canvas id="canvas2" width="150" height="150"></canvas>
+            <!-- Axis Configuration -->
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Rotary axis</span>
               </div>
-            
+              <select class="form-control" id="axisLabel">
+                <option selected="selected">A</option>
+                <option>B</option>
+              </select>
+              <input id="axisAngle" type="text" class="form-control" placeholder="α">
             </div>
-          </div>  
-        </div>
 
+            <!-- Machine Zero to Center-of-Rotation  -->
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Location of axis</span>
+              </div>
+              <input id="TranslationAxis1" type="text" class="form-control" placeholder="Y">
+              <input id="TranslationAxis2" type="text" class="form-control" placeholder="Z">
+            </div>
+
+            <!-- Center-of-Rotation to the Point-of-Interest -->
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Axis to point</span>
+              </div>
+              <input id="PointAxis1" type="text" class="form-control" placeholder="Y">
+              <input id="PointAxis2" type="text" class="form-control" placeholder="Z">
+            </div>
+
+            <div id="myDiv" class="input-group output-only d-sm-flex d-block">
+              <div class="input-group-prepend d-sm-flex d-block">
+                <span class="input-group-text">Result</span>
+              </div>
+              <div class="input-group-append" style="display: block; flex: 1 1 auto;">
+                <span id="outputRotation" class="input-group-text" style="justify-content: center;">&lt X, Y, Z &gt</span>
+              </div>
+            </div>
+
+        </form>
       </div>
 
-
-
+      <div class="col-auto mx-auto">
+          <canvas id="canvas2" width="150" height="150"></canvas>
+      </div>
     </div>
 
     </section>
