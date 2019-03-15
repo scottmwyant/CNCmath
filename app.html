@@ -16,6 +16,9 @@
     #FeedAndSpeed span.input-group-text{
       min-width: 100px;
     }
+    #DrillPoint span.input-group-text{
+      min-width: 110px;
+    }
     #UnitCircle div.input-group-prepend > span.input-group-text{
       min-width: 100px;
     }
@@ -91,6 +94,63 @@
   <!-- Main container -->
   <main class="markdown">
     
+    <section id="DrillPoint">
+      <div class="row">
+        <div class="col">
+            <h2>Drill Point <a class="helpLink" href="#DrillPoint" onclick="app.helpToggle(1)">help</a></h2>
+            <div id="helpBox1" class="helpBox">
+              <p>Input the tool diameter and the included angle.  Output is the length as measured from the tip of the tool to the full diameter.</p>
+              <br>
+              <p>Full documentation <a target="_blank" href="doc.html#DrillPoint">here</a>.</p>
+            </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col mx-auto" style="max-width: 600px;">
+          <div class="row">
+
+            <!-- Drill Point Applet -->
+            <div class="col-md mx-auto" style="max-width: 400px;">
+
+              <!-- Drill Point Input -->
+              <form>
+
+                <!-- Angle Input  -->
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Angle</span>
+                  </div>
+                  <input id="drillPointAngle" type="text" class="form-control" placeholder="140">
+                </div>
+
+                <!-- Diameter Input  -->
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Diameter</span>
+                  </div>
+                  <input id="drillPointDiameter" type="text" class="form-control" placeholder=".250">
+                </div>
+                
+                <!-- Result -->
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Tip Length</span>
+                  </div>
+                  <div class="input-group-append d-block" style="flex-grow: 1">
+                    <span id="drillPointTip" class="input-group-text">0.0455</span> 
+                  </div>
+                </div>
+
+              </form>
+        
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="UnitCircle">
       <div class="row">
         <div class="col">
@@ -627,6 +687,45 @@
       return response;
     }
     
+    // Add a property to hold the drill-point applet
+    app.drillPoint = (function() {
+      var dom = {
+        angle:  document.getElementById("drillPointAngle"),
+        diameter: document.getElementById("drillPointDiameter"),
+        tip: document.getElementById("drillPointTip")
+      }
+      function getData(){
+        
+        let myAngle = app.parseInput(dom.angle);
+        if(myAngle.unit != "rad"){
+          myAngle.value = myAngle.value * (Math.PI/180);
+        }
+        if(myAngle.value==0){myAngle.value=140};
+        
+        let myDiameter = app.parseInput(dom.diameter);
+        if(myDiameter.unit == "mm"){
+          myDiameter.value = myDiameter.value / 25.4;
+        }
+        if(myDiameter.value==0){myDiameter.value=.250;}
+        
+        return{
+          angle: myAngle.value,
+          diameter: myDiameter.value
+        }
+      }
+      function onInput(){
+        var data = getData();
+        var calc = (data.diameter/2) * Math.tan((Math.PI-data.angle)/2);
+        dom.tip.innerHTML = calc.toFixed(4);
+      }
+      return {
+        initialize: function(){
+          dom.angle.addEventListener("input", onInput);
+          dom.diameter.addEventListener("input", onInput);
+        }
+      }
+    })();
+
     // Add a property and hold an object for the unit circle applet
     app.unitCircle = (function(){
       
@@ -996,6 +1095,7 @@
       app.unitCircle.initialize();
       app.feedAndSpeed.initialize();
       app.fourthAxisPositioning.initialize();
+      app.drillPoint.initialize();
 
       //document.getElementById("helpLink1").onclick = app.helpToggle();
 
