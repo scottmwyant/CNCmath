@@ -185,7 +185,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">Angle</span>
                   </div>
-                  <input id="myAngle" type="text" class="form-control" placeholder="30(deg) | 1.5rad">
+                  <input id="myAngle" type="text" class="form-control" placeholder="0">
                 </div>
 
                 <!-- Length Input  -->
@@ -219,7 +219,6 @@
       </div>
     </section>
 
-
     <section id="FeedAndSpeed">
       
       <div class="row">
@@ -244,7 +243,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">Speed</span>
             </div>
-            <input id="speedKnown" type="text" class="form-control" placeholder="125sfm | 2500rpm">
+            <input id="speedKnown" type="text" class="form-control" placeholder="200sfm">
             <div class="input-group-append">
               <span id="outputSpeed" class="input-group-text"></span>
             </div>
@@ -255,7 +254,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">Diameter</span>
             </div>
-            <input id="speedDiameter" type="text" class="form-control" placeholder=".250(in) | 6mm">
+            <input id="speedDiameter" type="text" class="form-control" placeholder=".250">
             <div class="input-group-append">
               <span id="outputDiameter" class="input-group-text"></span>
             </div>
@@ -266,7 +265,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">Feed</span>
             </div>
-            <input id="feedKnown" type="text" class="form-control" placeholder=".003ipr | 5.0ipm">
+            <input id="feedKnown" type="text" class="form-control" placeholder=".003ipr">
             <div class="input-group-append">
               <span id="outputFeed" class="input-group-text"></span>
             </div>
@@ -277,7 +276,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">Travel</span>
             </div>
-            <input id="travel" type="text" class="form-control" placeholder=".250(in) | 6mm">
+            <input id="travel" type="text" class="form-control" placeholder="1">
             <div class="input-group-append">
               <span id="outputTime" class="input-group-text"></span>
             </div>
@@ -287,7 +286,6 @@
   
       </div>
     </section>
-
 
     <section id="RotaryPositioning4">
     <div class="row">
@@ -620,7 +618,7 @@
         this.ctx.beginPath();
         this.ctx.lineCap="round";
         this.ctx.moveTo(this.origin.x, this.origin.y);
-        this.ctx.lineTo(this.origin.x + (scale/2)*(Math.cos(angle*Math.PI/180)), this.origin.y - (scale/2)*(Math.sin(angle*Math.PI/180)));
+        this.ctx.lineTo(this.origin.x + (scale/2)*(Math.cos(angle)), this.origin.y - (scale/2)*(Math.sin(angle)));
         this.ctx.lineWidth=2;
         this.ctx.strokeStyle="black";
         this.ctx.stroke();
@@ -647,44 +645,73 @@
     var app = {};
 
     // Add a utility method
-    app.parseInput = function (textInputElement){
-      let str = textInputElement.value;
-      let units = ["in", "mm", "ipr", "ipm", "rpm", "sfm", "deg", "rad", "radians", "degrees"];
-      let inputUnit;
-      let response;
+    app.parse = function (){
+  
+      function parseInputElement(inputElement){
+        let txt = inputElement.placeholder;
+        if(inputElement.value!=""){txt = inputElement.value;}
+        return parseText(txt);
+      }
 
-      // test if there is 'text', ie letters in the input
-      if(!Number.isNaN(Number(str))){inputUnit = "none";}
-      else{
-        for(let i=0; i<units.length; i++){
-          let testCase = units[i].toLowerCase();
-          let suffix = str.substring(str.length-units[i].length).toLowerCase();
-          if(testCase == suffix){inputUnit=testCase;}
-          if(inputUnit!=null){break;}
+      function parseText(str){
+      
+        let units = ["in", "mm", "ipr", "ipm", "rpm", "sfm", "deg", "rad", "radians", "degrees"];
+        let inputUnit="unknown";
+        let inputValue=null;
+
+        // Test if there is a unit given with  the input magnitude
+        if(!Number.isNaN(Number(str))){
+          inputUnit = "none";
+          inputValue=Number(str);
         }
-        if(inputUnit==null){inputUnit="not-recognized";}
-      }
-      if(inputUnit=="none"){
-        response = {
-          unit: inputUnit,
-          value: Number(str)
+        else
+        {
+          // Check for fractional input here:
+          // Test if there is a single "/" in the input text
+          if((str.length - (str.replace(/\//g,'')).length)==1){
+            // now make sure it is not on either end
+            let divisorPosition = str.search(/\//);
+            if(divisorPosition != 0 && divisorPosition != str.length-1){
+              inputUnit="fractional";
+              let arr = str.split("/");
+              inputValue = Number((arr[0]/arr[1]));
+            }
+          }
+          if(inputUnit=="unknown"){
+            for(let i=0; i<units.length; i++){
+              let testCase = units[i].toLowerCase();
+              let suffix = str.substring(str.length-units[i].length).toLowerCase();
+              if(testCase == suffix){inputUnit=testCase;}
+              if(inputUnit!="unknown"){
+                inputValue=Number(str.substring(0,str.length-inputUnit.length));
+                break;
+              }
+            }
+          }
         }
-      }
-      else if(inputUnit=="not-recognized"){
-        response = {
-          unit: inputUnit,
-          value: null
+        if(Number.isNaN(inputValue)){
+          inputValue=null;
+          inputUnit="unknown"
         }
+        return {unit: inputUnit, value: inputValue};
       }
-      else{
-        response = {
-          unit: inputUnit,
-          value: Number(str.substring(0,str.length-inputUnit.length))
-        }
+
+      return{
+        getAngleRadians: function(inputElement){
+          let data = parseInputElement(inputElement);
+          if(data.unit!=="rad" && data.unit!=="radians"){ return data.value * Math.PI/180; }
+          else{ return data.value; }
+        },
+        getLengthInches: function(inputElement){
+          let data = parseInputElement(inputElement);
+          if(data.unit=="mm"){return data.value * 1/25.4;}
+          else{return data.value;}
+        },
+        getValueUnit: parseInputElement
+
       }
-      return response;
-    }
-    
+    }();
+  
     // Add a property to hold the drill-point applet
     app.drillPoint = (function() {
       var dom = {
@@ -693,33 +720,22 @@
         tip: document.getElementById("drillPointTip")
       }
       function getData(){
-        
-        let myAngle = app.parseInput(dom.angle);
-        if(myAngle.unit != "rad"){
-          myAngle.value = myAngle.value * (Math.PI/180);
-        }
-        if(myAngle.value==0){myAngle.value=140};
-        
-        let myDiameter = app.parseInput(dom.diameter);
-        if(myDiameter.unit == "mm"){
-          myDiameter.value = myDiameter.value / 25.4;
-        }
-        if(myDiameter.value==0){myDiameter.value=.250;}
-        
         return{
-          angle: myAngle.value,
-          diameter: myDiameter.value
+          angle: app.parse.getAngleRadians(dom.angle),
+          diameter: app.parse.getLengthInches(dom.diameter)
         }
       }
       function onInput(){
         var data = getData();
-        var calc = (data.diameter/2) * Math.tan((Math.PI-data.angle)/2);
+        var calc = 0;
+        if(data.angle!=null && data.diameter!=null){calc=(data.diameter/2) * Math.tan((Math.PI-data.angle)/2);}
         dom.tip.innerHTML = calc.toFixed(4);
       }
       return {
         initialize: function(){
           dom.angle.addEventListener("input", onInput);
           dom.diameter.addEventListener("input", onInput);
+          onInput();
         }
       }
     })();
@@ -741,34 +757,34 @@
       function getData(){
         var obj = {};
         // read input values
-        obj.angle = app.parseInput(dom.angle);
-        obj.scale = app.parseInput(dom.scale);
+        obj.angle = app.parse.getAngleRadians(dom.angle);
+        obj.scale = app.parse.getLengthInches(dom.scale);
+        
         // manipulate input
-        if(isNaN(obj.angle.value)){obj.angle.value=0;}
-        if(obj.angle.unit=="rad" || obj.angle.unit=="radians"){obj.angle.value=obj.angle.value*(180/Math.PI);}
-        if(isNaN(obj.scale.value) || obj.scale.value==0){obj.scale.value=1;}
+        if(obj.angle==null){obj.angle=0;}
+        if(obj.scale==null || obj.scale==0){obj.scale=1;}
         return obj;
       }
       
       function prepareAnimation(){
 
-        // hard-code the angle to move on each repaint
-        const increment = 0.25;
+        // hard-code the angle to move on each repaint (using degrees)
+        const increment = 0.35;
+        const tolerance = 1;
 
         // Once the displayed angle is sufficiently close to the target, the display angle is assigned the target value
-        if(Math.abs(animation.current-animation.target)<1){animation.current = animation.target;}
+        if(Math.abs(animation.current-animation.target)<(tolerance*Math.PI/180)){animation.current = animation.target;}
 
         // When the targeted angle is not equal to the displayed angle increment the angle toward the target
         if(animation.current!=animation.target){
-          window.requestAnimationFrame(animate); //.bind(this)
+          window.requestAnimationFrame(animate);
           if(animation.current>animation.target){
-            animation.current = animation.current - increment;
+            animation.current = animation.current - (increment*Math.PI/180);
           }
           else{
-            animation.current = animation.current + increment;
+            animation.current = animation.current + (increment*Math.PI/180);
           }
         }
-
       }
 
       function animate() {
@@ -779,14 +795,15 @@
         dom.graph.drawAngledLine(animation.current);
         
         // add tick marks
-        if(animation.current != 0 || (animation.current==0 && animation.current>.5)){
-          dom.graph.drawTicks(Math.cos(animation.current*Math.PI/180), Math.sin(animation.current*Math.PI/180));
+        if(animation.current != 0 || (animation.current==0 && animation.current>.005)){
+          dom.graph.drawTicks(Math.cos(animation.current), Math.sin(animation.current));
         }
         
         // update the numerical solution
           updateNumericalOutput(animation.current, animation.scale);
 
       }
+      
       function onAngleInput(){
         setTimeout(function(){
           
@@ -794,21 +811,24 @@
           var data = getData();
           
           // write values to private variables
-          animation.target = data.angle.value;
-          animation.scale = data.scale.value;
+          animation.target = data.angle;
+          animation.scale = data.scale;
 
           animate();
 
         }, (0.75*1000))
       }
+      
       function onScaleInput(){
         var data = getData();
-        updateNumericalOutput(data.angle.value, data.scale.value);
+        updateNumericalOutput(data.angle, data.scale);
       }
+      
       function updateNumericalOutput(angle, scale){
-        dom.cosine.innerHTML = (scale * Math.cos(angle * Math.PI/180)).toFixed(4);
-        dom.sine.innerHTML = (scale * Math.sin(angle * Math.PI/180)).toFixed(4);
+        dom.cosine.innerHTML = (scale * Math.cos(angle)).toFixed(4);
+        dom.sine.innerHTML = (scale * Math.sin(angle)).toFixed(4);
       }
+      
       return{
         initialize: function(){
           dom.angle.addEventListener("input", onAngleInput);
@@ -835,10 +855,10 @@
       }
       function getData(){
         return{
-          diameter: app.parseInput(dom.diameter),
-          feed: app.parseInput(dom.feed),
-          speed: app.parseInput(dom.speed),
-          travel: app.parseInput(dom.travel)
+          diameter: app.parse.getValueUnit(dom.diameter),
+          feed: app.parse.getValueUnit(dom.feed),
+          speed: app.parse.getValueUnit(dom.speed),
+          travel: app.parse.getValueUnit(dom.travel)
         }
       }
       function onInput(){
@@ -899,7 +919,7 @@
         if(Number.isNaN(calcSpeed) || !Number.isFinite(calcSpeed) || calcSpeed==0){
           dom.calculatedSpeed.innerHTML = "";
         }else{
-          dom.calculatedSpeed.innerHTML = calcSpeed.toFixed(precision) + " " + outputUnit;
+          dom.calculatedSpeed.innerHTML = calcSpeed.toFixed(precision) + outputUnit;
         }
         
         // Feed conversion
@@ -918,7 +938,7 @@
         if(Number.isNaN(calcFeed) || calcFeed==0 || !Number.isFinite(calcFeed)){
           dom.calculatedFeed.innerHTML = "";
         }else{
-          dom.calculatedFeed.innerHTML = calcFeed.toFixed(precision) + " " + outputUnit;
+          dom.calculatedFeed.innerHTML = calcFeed.toFixed(precision) + outputUnit;
         }
         
         // Time duration of axial movement at given speed/feed
@@ -942,6 +962,7 @@
           dom.feed.addEventListener("input", onInput);
           dom.speed.addEventListener("input", onInput);
           dom.travel.addEventListener("input", onInput);
+          onInput();
         }
       }
     })();
@@ -969,12 +990,12 @@
       }
       function getData(){
         rotaryPosition = dom.ParseInput(dom.axisAngle).value;
-        locationOfAxis[axis1] = app.parseInput(dom.mz_cor1).value;
-        locationOfAxis[axis2] = app.parseInput(dom.mz_cor2).value;
-        pointOfInterest[axis1] = app.parseInput(dom.cor_p1).value;
-        pointOfInterest[axis2] = app.parseInput(dom.cor_p2).value;
+        locationOfAxis[axis1] = app.parse.getValueUnit(dom.mz_cor1).value;
+        locationOfAxis[axis2] = app.parse.getValueUnit(dom.mz_cor2).value;
+        pointOfInterest[axis1] = app.parse.getValueUnit(dom.cor_p1).value;
+        pointOfInterest[axis2] = app.parse.getValueUnit(dom.cor_p2).value;
         var obj = {};
-        obj.rotaryPosition = app.parseInput(dom.angle).value;
+        obj.rotaryPosition = app.parse.getValueUnit(dom.angle).value;
         //continue adding properties on this object to return to the caller
         return obj;
       }
@@ -1006,7 +1027,7 @@
       }
       function updateSolution(){
         var axis = dom.axisLabel.value.toLowerCase().substring(0,1);
-        var angle = app.parseInput(dom.axisAngle).value;
+        var angle = app.parse.getValueUnit(dom.axisAngle).value;
         pointVector1 = getPointVector();        
         pointVector2 = pointVector1.rotate(axis, angle);
         resultantVector = pointVector2.scalarSum(axisVector);
@@ -1030,8 +1051,8 @@
         if(dom.axisLabel.value.toLowerCase().substring(0,1)=="a"){axis1="y";}
         
         // read inputs into the vector components
-        v[axis1] = app.parseInput(dom.cor_p1).value;
-        v.z = app.parseInput(dom.cor_p2).value;
+        v[axis1] = app.parse.getValueUnit(dom.cor_p1).value;
+        v.z = app.parse.getValueUnit(dom.cor_p2).value;
         
         return v;
       }
@@ -1039,8 +1060,8 @@
         var v = new Vector();
         var axis1 = "x";
         if(dom.axisLabel.value.toLowerCase().substring(0,1)=="a"){axis1="y";}
-        v[axis1] = app.parseInput(dom.mz_cor1).value;
-        v.z = app.parseInput(dom.mz_cor2).value;
+        v[axis1] = app.parse.getValueUnit(dom.mz_cor1).value;
+        v.z = app.parse.getValueUnit(dom.mz_cor2).value;
         return v;
 
       }
@@ -1094,8 +1115,6 @@
       app.feedAndSpeed.initialize();
       app.fourthAxisPositioning.initialize();
       app.drillPoint.initialize();
-
-      //document.getElementById("helpLink1").onclick = app.helpToggle();
 
     })();
     
