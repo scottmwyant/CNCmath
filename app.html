@@ -69,9 +69,11 @@
       min-width: 138px;
     }
     canvas{
-      border: solid thin #ced4ea;
+      border: solid 1px #ced4ea;
       padding: 25px 25px 25px 25px;
       margin: .75rem auto;
+      width: 202px;
+      height: 202px;
     }
     section{
       max-width: 1000px;
@@ -515,11 +517,18 @@
     
     class Graph{
       constructor(htmlCanvas, plane){ 
-        this.width = htmlCanvas.width;
-        this.height = htmlCanvas.height;
+        this.ctx = (function () {
+          var dpr = window.devicePixelRatio || 1;
+          htmlCanvas.width = htmlCanvas.width * dpr;
+          htmlCanvas.height = htmlCanvas.height * dpr;
+          var ctx = htmlCanvas.getContext('2d');
+          ctx.scale(dpr, dpr);
+          return ctx;
+        })();
+        this.width = htmlCanvas.width/window.devicePixelRatio;
+        this.height = htmlCanvas.height/window.devicePixelRatio;
         this.size = Math.min(this.height, this.width);
         this.origin = {x: this.width/2, y: this.height/2}
-        this.ctx = htmlCanvas.getContext("2d");
         this.style = {axis1Color: "black", axis2Color: "black"}
         this.setPlane(plane);
         this.reset();
