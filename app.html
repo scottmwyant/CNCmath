@@ -82,15 +82,14 @@
     section h2{
       position: relative;
     }
-    div.helpBox{
-      display: none;
-      padding: 25px 45px 15px 45px;
-      border: solid thin gray;
-      border-radius: .3rem;
+    div.helpText{
       font-size: .80rem;
-      background-color: whitesmoke;
-      max-width: 80%;
-      margin: 30px auto;
+      overflow:hidden;
+      transition:height 0.25s linear; 
+      height: 0px;
+    }
+    div.helpText p{
+      margin-bottom: 10px;
     }
     a.helpLink{
       font-size: 65%;
@@ -149,11 +148,9 @@
     <section id="DrillPoint">
       <div class="row">
         <div class="col">
-            <h2>Drill Point <a class="helpLink" href="#DrillPoint" onclick="app.helpToggle(1)">help</a></h2>
-            <div id="helpBox1" class="helpBox">
-              <p>Input the tool diameter and the included angle.  Output is the length as measured from the tip of the tool to the full diameter.</p>
-              <br>
-              <p>Full documentation <a target="_blank" href="doc.html#DrillPoint">here</a>.</p>
+            <h2>Drill Point <a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
+            <div class="helpText">
+              <p>Input the tool diameter and the included angle.  Output is the length as measured along the axis of the tool, from the tip to the full diameter.  The angle input assumes degrees, input radians using '2.44rad'. Diameter assumes decimal inch input, you can also input fractional '1/4' or metric '6.35mm'. </p>
             </div>
         </div>
       </div>
@@ -206,11 +203,9 @@
     <section id="UnitCircle">
       <div class="row">
         <div class="col">
-            <h2>The Unit Circle <a class="helpLink" href="#UnitCircle" onclick="app.helpToggle(1)">help</a></h2>
-            <div id="helpBox1" class="helpBox">
-              <p>The unit circle is one of the easiest ways to visualize cosine and sine.  The radius of the circle is 1 by definition, but you can use the <i>scale</i> field to change that to whatever length you need.</p>
-              <br>
-              <p>Full documentation <a target="_blank" href="doc.html#UnitCircle">here</a>.</p> <!--https://en.wikipedia.org/wiki/Unit_circle-->
+            <h2>The Unit Circle <a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
+            <div class="helpText">
+              <p>The unit circle is a simple visualization of cosine and sine. The angle input assumes degrees, input radians using '2.44rad'.  The scale input is unitless.</p>
             </div>
         </div>
       </div>
@@ -268,12 +263,9 @@
       
       <div class="row">
         <div class="col">
-            <h2>Feed &amp; Speed Units<a class="helpLink" href="#FeedAndSpeed" onclick="app.helpToggle(2)">help</a></h2>
-            <div id="helpBox2" class="helpBox">
-              <p>While it's important to control surface speed and chip load, a lot of time machines are programmed in RPM and inches per minute.</p>
-              <p>The input unit is assumed by the magnitude of the number, but you can type the unit in to be sure (for example input "125sfm" for the speed.  The assumed unit on the diameter field is inches.</p>
-              <br>
-              <p>Full documentation <a target="_blank" href="doc.html#FeedAndSpeed">here</a>.</p>
+            <h2>Feed &amp; Speed Units<a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
+            <div class="helpText">
+              <p>Convert between spindle speed (revs/min, rpm) and surface speed (feet/min, sfm).  Convert feed between inches/rev (ipr) and inches/minute (ipm).  Diameter input is assumed to be decimal inch, optionally enter fractional inch '1/4' or metric '6mm'.</p>
             </div>
         </div>
       </div>
@@ -335,13 +327,9 @@
     <section id="RotaryPositioning4">
     <div class="row">
       <div class="col">
-        <h2>4th Axis Positioning <a class="helpLink" href="#RotaryPositioning4" onclick="app.helpToggle(3)">help</a></h2>
-        <div id="helpBox3" class="helpBox">
-          <p>Four and five axis mills can create complicated geometries, but in many applications, the rotary is used only for positioning the part.  In these applications, it's not necessary to rely on CAD/CAM every step of the way.  As long as know know where the axis is located and where your point is relative to the axis, calculating a rotational transformation is trivial.</p>
-          <p>First define the axis of rotation, either A or B.  This choice determines which plane is observed in the graph.  On a vertical machine we'll be looking at the YZ plane, but on a horizontal machine we'll be looking at the XZ plane. Next, locate the axis by defining a vector starting at machine zero, ending on the axis of rotation.  Then, define a point measured from the center of rotation.  </p>
-          <p>The calculated result is the location of the point relative to machine zero, after rotation is applied.</p>
-          <br>
-          <p>Full documentation <a target="_blank" href="doc.html#RotaryPositioning4">here</a>.</p>
+        <h2>4th Axis Positioning <a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
+        <div class="helpText">
+          <p>Calculate where a point lands after a given rotation is applied.  The point's initial location must be known and the location of the axis of rotation must be known.</p>
         </div>                          
       </div>
     </div>
@@ -1151,16 +1139,22 @@
       }
     })();
 
-    // Help toggler
-    app.helpToggle = function(int){
-      var box = document.getElementById("helpBox" + int);
-      if(box.style.display=="none" || box.style.display==""){
-        box.style.display = "block";
-      }else{
-        box.style.display = "none";
+    // Help toggler    
+    app.helpToggle = (function(event){
+      // stop default behavior of scrolling to top of page
+      event.preventDefault();
+      let link = event.target;
+      let help = event.target.parentElement.nextElementSibling;
+      if(help.style.height!==""){
+        link.innerText = "help";
+        help.style.height = null;
       }
-    };
-    
+      else{
+        link.innerText="hide help";
+        help.style.height = help.scrollHeight + "px";
+      }
+    });
+
     // Initialize the different parts of the web app
     (function Run(){
       app.unitCircle.initialize();
