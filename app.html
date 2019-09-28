@@ -54,7 +54,7 @@
 
   <style>
     main{
-      margin: 3rem auto;
+      margin: 0 auto;
     }
     #FeedAndSpeed span.input-group-text{
       min-width: 100px;
@@ -129,6 +129,9 @@
         margin-left: 0px;
         margin-right: -1px;
       }
+      header small{
+        line-height: 18px;
+      }
     }
   
   </style>
@@ -138,8 +141,12 @@
   
   <!-- Header -->
   <header class="row">
-    <div class="col-auto" style="border-right: thin solid  gray"><a href="index.html"><h1>CNC<small> math</small></h1></a></div>
-    <div class="col"><p>for machinists<br />and programmers</p></div>
+    <div class="col col-sm-auto"><a class="m-auto m-sm-0" href="index.html">
+        <h1>CNC<small class="d-block d-sm-inline text-center"> math</small></h1>
+      </a></div>
+    <div class="col d-none d-sm-block border-left border-secondary">
+      <p>for machinists<br />and programmers</p>
+    </div>
   </header>
 
   <!-- Main container -->
