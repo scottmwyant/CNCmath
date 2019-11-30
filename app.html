@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>CNC math</title>
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" sizes="64x64">
@@ -10,10 +11,10 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="for machinists and programmers.">
-  
+
   <!-- PWA -->
   <link rel="manifest" href="manifest.json">
-  
+
   <!-- iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <link rel="apple-touch-icon" sizes="57x57" href="assets/icon-57x57.png" />
@@ -21,95 +22,94 @@
   <link rel="apple-touch-icon" sizes="76x76" href="assets/icon-76x76.png" />
   <link rel="apple-touch-icon" sizes="114x114" href="assets/icon-114x114.png" />
   <link rel="apple-touch-icon" sizes="120x120" href="assets/icon-120x120.png" />
-  <link rel="apple-touch-icon" sizes="144x144" href="assets/icon-144x144.png"/>
+  <link rel="apple-touch-icon" sizes="144x144" href="assets/icon-144x144.png" />
   <link rel="apple-touch-icon" sizes="152x152" href="assets/icon-152x152.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180x180.png" />
-  <link rel="apple-touch-startup-image"
-    href="assets/splash-port-0640x1136.png"
-    media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"
-  />
-  <link rel="apple-touch-startup-image"
-    href="assets/splash-port-0750x1334.png"
-    media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
-  />
-  <link rel="apple-touch-startup-image"
-    href="assets/splash-port-1242x2208.png"
-    media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)"
-  />
-  <link rel="apple-touch-startup-image"
-    href="assets/splash-port-1125x2436.png"
-    media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
-  />
-  <link rel="apple-touch-startup-image"
-    href="assets/splash-port-1536x2048.png"
-    media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)"
-  />
-  <link rel="apple-touch-startup-image"
-    href="assets/splash-port-1668x2224.png"
-    media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)"
-  />
-  <link rel="apple-touch-startup-image"
-    href="assets/splash-port-2048x2732.png"
-    media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)"
-  />  
+  <link rel="apple-touch-startup-image" href="assets/splash-port-0640x1136.png"
+    media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" />
+  <link rel="apple-touch-startup-image" href="assets/splash-port-0750x1334.png"
+    media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" />
+  <link rel="apple-touch-startup-image" href="assets/splash-port-1242x2208.png"
+    media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)" />
+  <link rel="apple-touch-startup-image" href="assets/splash-port-1125x2436.png"
+    media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" />
+  <link rel="apple-touch-startup-image" href="assets/splash-port-1536x2048.png"
+    media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" />
+  <link rel="apple-touch-startup-image" href="assets/splash-port-1668x2224.png"
+    media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" />
+  <link rel="apple-touch-startup-image" href="assets/splash-port-2048x2732.png"
+    media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" />
 
   <style>
-    main{
+    main {
       margin: 0 auto;
     }
-    #FeedAndSpeed span.input-group-text{
+
+    #FeedAndSpeed span.input-group-text {
       min-width: 100px;
     }
-    #DrillPoint span.input-group-text{
+
+    #DrillPoint span.input-group-text {
       min-width: 110px;
     }
-    #UnitCircle div.input-group-prepend > span.input-group-text{
+
+    #UnitCircle div.input-group-prepend>span.input-group-text {
       min-width: 100px;
     }
-    #RotaryPositioning4 div.input-group-prepend > span.input-group-text{
+
+    #RotaryPositioning4 div.input-group-prepend>span.input-group-text {
       min-width: 138px;
     }
-    canvas{
+
+    canvas {
       border: solid 1px #ced4ea;
       padding: 25px 25px 25px 25px;
       margin: .75rem auto;
       width: 202px;
       height: 202px;
     }
-    section{
+
+    section {
       max-width: 1000px;
-      margin: 0 auto;  
+      margin: 0 auto;
     }
-    section h2{
+
+    section h2 {
       position: relative;
     }
-    div.helpText{
+
+    div.helpText {
       font-size: .80rem;
-      overflow:hidden;
-      transition:height 0.25s linear; 
+      overflow: hidden;
+      transition: height 0.25s linear;
       height: 0px;
     }
-    div.helpText p{
+
+    div.helpText p {
       margin-bottom: 10px;
     }
-    a.helpLink{
+
+    a.helpLink {
       font-size: 65%;
       font-weight: 400;
       margin: 0 30px;
-      position: absolute; 
+      position: absolute;
       right: 0;
       bottom: 0;
       padding-bottom: 0.3em;
     }
-    div.input-group-append span.input-group-text{
+
+    div.input-group-append span.input-group-text {
       background: var(--app-calculation);
       font-family: monospace;
     }
-    form div.input-group{
+
+    form div.input-group {
       margin-top: .75rem;
       margin-bottom: .75rem;
     }
-    div.input-group.output-only div.input-group-append{
+
+    div.input-group.output-only div.input-group-append {
       /* 
         When there is no input element in the group cancel the -1 margin on the
          .input-group-append because the adjacent element is .input-group-prepend
@@ -119,27 +119,30 @@
     }
 
     @media (max-width: 576px) {
-      #myDiv div.input-group-prepend > span{
-        border-radius: 4px 4px 0px 0px;   
+      #myDiv div.input-group-prepend>span {
+        border-radius: 4px 4px 0px 0px;
       }
-      #myDiv div.input-group-append > span{
+
+      #myDiv div.input-group-append>span {
         margin-top: -1px;
-        border-radius: 0 0 4px 4px;   
+        border-radius: 0 0 4px 4px;
       }
-      #myDiv div.input-group-append{
+
+      #myDiv div.input-group-append {
         margin-left: 0px;
         margin-right: -1px;
       }
-      header small{
+
+      header small {
         line-height: 18px;
       }
     }
-  
   </style>
 
 </head>
+
 <body class="container-fluid">
-  
+
   <!-- Header -->
   <header class="row">
     <div class="col col-sm-auto"><a class="m-auto m-sm-0" href="index.html">
@@ -152,14 +155,16 @@
 
   <!-- Main container -->
   <main class="markdown">
-    
+
     <section id="DrillPoint">
       <div class="row">
         <div class="col">
-            <h2>Drill Point <a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
-            <div class="helpText">
-              <p>Input the tool diameter and the included angle.  Output is the length as measured along the axis of the tool, from the tip to the full diameter.  The angle input assumes degrees, input radians using '2.44rad'. Diameter assumes decimal inch input, you can also input fractional '1/4' or metric '6.35mm'. </p>
-            </div>
+          <h2>Drill Point <a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
+          <div class="helpText">
+            <p>Input the tool diameter and the included angle. Output is the length as measured along the axis of the
+              tool, from the tip to the full diameter. The angle input assumes degrees, input radians using '2.44rad'.
+              Diameter assumes decimal inch input, you can also input fractional '1/4' or metric '6.35mm'. </p>
+          </div>
         </div>
       </div>
 
@@ -188,19 +193,19 @@
                   </div>
                   <input id="drillPointDiameter" type="text" class="form-control" placeholder=".250">
                 </div>
-                
+
                 <!-- Result -->
                 <div class="input-group output-only">
                   <div class="input-group-prepend">
                     <span class="input-group-text">Tip Length</span>
                   </div>
                   <div class="input-group-append d-block" style="flex-grow: 1">
-                    <span id="drillPointTip" class="input-group-text">0.0455</span> 
+                    <span id="drillPointTip" class="input-group-text">0.0455</span>
                   </div>
                 </div>
 
               </form>
-        
+
             </div>
 
           </div>
@@ -211,10 +216,11 @@
     <section id="UnitCircle">
       <div class="row">
         <div class="col">
-            <h2>The Unit Circle <a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
-            <div class="helpText">
-              <p>The unit circle is a simple visualization of cosine and sine. The angle input assumes degrees, input radians using '2.44rad'.  The scale input is unitless.</p>
-            </div>
+          <h2>The Unit Circle <a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
+          <div class="helpText">
+            <p>The unit circle is a simple visualization of cosine and sine. The angle input assumes degrees, input
+              radians using '2.44rad'. The scale input is unitless.</p>
+          </div>
         </div>
       </div>
 
@@ -223,11 +229,11 @@
           <div class="row">
 
             <!-- Unit Circle Applet -->
-            <div class="col-md mx-auto my-auto" style="max-width: 400px;">  
-                
+            <div class="col-md mx-auto my-auto" style="max-width: 400px;">
+
               <!-- Unit circle input -->
               <form>
-      
+
                 <!-- Angle Input  -->
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -249,18 +255,20 @@
                     <span class="input-group-text">Cos, Sin</span>
                   </div>
                   <div class="input-group-append" style="display: block; flex: 1 1 auto">
-                    <span class="input-group-text" style="justify-content: center;"><div>&lt <span id="outputCOS" >1.0000</span>, <span id="outputSIN" >0.0000</span> &gt</div></span> 
+                    <span class="input-group-text" style="justify-content: center;">
+                      <div>&lt <span id="outputCOS">1.0000</span>, <span id="outputSIN">0.0000</span> &gt</div>
+                    </span>
                   </div>
                 </div>
 
               </form>
-        
+
             </div>
-            
+
             <!-- Graphical output -->
             <div class="col-auto mx-auto">
-                <canvas id="canvas1" width="150" height="150"></canvas>
-            </div> 
+              <canvas id="canvas1" width="150" height="150"></canvas>
+            </div>
 
           </div>
         </div>
@@ -268,21 +276,23 @@
     </section>
 
     <section id="FeedAndSpeed">
-      
+
       <div class="row">
         <div class="col">
-            <h2>Feed &amp; Speed Units<a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
-            <div class="helpText">
-              <p>Convert between spindle speed (revs/min, rpm) and surface speed (feet/min, sfm).  Convert feed between inches/rev (ipr) and inches/minute (ipm).  Diameter input is assumed to be decimal inch, optionally enter fractional inch '1/4' or metric '6mm'.</p>
-            </div>
+          <h2>Feed &amp; Speed Units<a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
+          <div class="helpText">
+            <p>Convert between spindle speed (revs/min, rpm) and surface speed (feet/min, sfm). Convert feed between
+              inches/rev (ipr) and inches/minute (ipm). Diameter input is assumed to be decimal inch, optionally enter
+              fractional inch '1/4' or metric '6mm'.</p>
+          </div>
         </div>
       </div>
-      
+
       <div class="row">
-        
+
         <!-- Speed and Feed Applet -->
         <form class="col mx-auto" style="max-width: 450px;">
-          
+
           <!-- Speed input -->
           <div class="input-group">
             <div class="input-group-prepend">
@@ -304,7 +314,7 @@
               <span id="outputDiameter" class="input-group-text"></span>
             </div>
           </div>
-          
+
           <!-- Feed input -->
           <div class="input-group">
             <div class="input-group-prepend">
@@ -326,25 +336,26 @@
               <span id="outputTime" class="input-group-text"></span>
             </div>
           </div>
-          
+
         </form>
-  
+
       </div>
     </section>
 
     <section id="RotaryPositioning4">
-    <div class="row">
-      <div class="col">
-        <h2>4th Axis Positioning <a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
-        <div class="helpText">
-          <p>Calculate where a point lands after a given rotation is applied.  The point's initial location must be known and the location of the axis of rotation must be known.</p>
-        </div>                          
+      <div class="row">
+        <div class="col">
+          <h2>4th Axis Positioning <a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
+          <div class="helpText">
+            <p>Calculate where a point lands after a given rotation is applied. The point's initial location must be
+              known and the location of the axis of rotation must be known.</p>
+          </div>
+        </div>
       </div>
-    </div>
-    
-    <div class="row mx-auto" style="max-width: 800px;">
-      <div class="col-md mx-auto my-auto"> 
-        <form style="max-width: 600px;">
+
+      <div class="row mx-auto" style="max-width: 800px;">
+        <div class="col-md mx-auto my-auto">
+          <form style="max-width: 600px;">
 
             <!-- Axis Configuration -->
             <div class="input-group">
@@ -381,29 +392,31 @@
                 <span class="input-group-text">Result</span>
               </div>
               <div class="input-group-append" style="display: block; flex: 1 1 auto;">
-                <span id="outputRotation" class="input-group-text" style="justify-content: center;">&lt X, Y, Z &gt</span>
+                <span id="outputRotation" class="input-group-text" style="justify-content: center;">&lt X, Y, Z
+                  &gt</span>
               </div>
             </div>
 
-        </form>
-      </div>
+          </form>
+        </div>
 
-      <div class="col-auto mx-auto">
+        <div class="col-auto mx-auto">
           <canvas id="canvas2" width="150" height="150"></canvas>
+        </div>
       </div>
-    </div>
 
     </section>
 
-  </main>      
+  </main>
 
   <footer class="row">
     <div class="col">
       <a href="https://github.com/scottmwyant/cncmath" target="_blank">Contribute to this project on GitHub</a>
     </div>
-  </footer>  
+  </footer>
 
   <script src="scripts/app.js"></script>
 
 </body>
+
 </html>
