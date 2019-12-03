@@ -115,16 +115,16 @@
     }
 
     @media (max-width: 576px) {
-      #myDiv div.input-group-prepend>span {
+      div.input-group.wrap>div.input-group-prepend>span.input-group-text {
         border-radius: 4px 4px 0px 0px;
       }
 
-      #myDiv div.input-group-append>span {
+      div.input-group.wrap>div.input-group-append>span.input-group-text {
         margin-top: -1px;
-        border-radius: 0 0 4px 4px;
+        border-radius: 0px 0px 4px 4px;
       }
 
-      #myDiv div.input-group-append {
+      div.input-group.wrap>div.input-group-append {
         margin-left: 0px;
         margin-right: -1px;
       }
@@ -189,8 +189,8 @@
                 </div>
 
                 <!-- Result -->
-                <div class="input-group output-only">
-                  <div class="input-group-prepend">
+                <div class="input-group output-only d-sm-flex d-block wrap">
+                  <div class="input-group-prepend d-sm-flex d-block">
                     <span class="input-group-text">Tip Length</span>
                   </div>
                   <div class="input-group-append d-block" style="flex-grow: 1">
@@ -242,8 +242,8 @@
                   <input id="myLength" type="text" class="form-control" placeholder="1">
                 </div>
 
-                <div class="input-group output-only">
-                  <div class="input-group-prepend">
+                <div class="input-group output-only d-sm-flex d-block wrap">
+                  <div class="input-group-prepend d-sm-flex d-block">
                     <span class="input-group-text">Cos, Sin</span>
                   </div>
                   <div class="input-group-append" style="display: block; flex: 1 1 auto">
@@ -375,7 +375,7 @@
               <input id="PointAxis2" type="text" class="form-control" placeholder="Z">
             </div>
 
-            <div id="myDiv" class="input-group output-only d-sm-flex d-block">
+            <div class="input-group output-only d-sm-flex d-block wrap">
               <div class="input-group-prepend d-sm-flex d-block">
                 <span class="input-group-text">Result</span>
               </div>
