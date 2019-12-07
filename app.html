@@ -140,7 +140,6 @@
 
 <body class="container-fluid">
 
-  <!-- Header -->
   <header class="row">
     <div class="col col-sm-auto"><a class="m-auto m-sm-0" href="index.html">
         <h1>CNC<small class="d-block d-sm-inline text-center"> math</small></h1>
@@ -223,6 +222,7 @@
                     </div>
                     <input id="myLength" type="text" class="form-control" placeholder="1">
                   </div>
+                  <!-- Result  -->
                   <div class="input-group output-only d-sm-flex d-block wrap">
                     <div class="input-group-prepend d-sm-flex d-block">
                       <span class="input-group-text">Cos, Sin</span>
@@ -252,9 +252,8 @@
           between inches/rev (ipr) and inches/minute (ipm). Diameter input is assumed to be decimal inch, optionally enter
           fractional inch '1/4' or metric '6mm'.</p>
         <div class="row">
-          <!-- Speed and Feed Applet -->
           <form class="col mx-auto">
-            <!-- Speed input -->
+            <!-- Speed -->
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">Speed</span>
@@ -264,7 +263,7 @@
                 <span id="outputSpeed" class="input-group-text"></span>
               </div>
             </div>
-            <!-- Diameter input -->
+            <!-- Diameter -->
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">Diameter</span>
@@ -274,7 +273,7 @@
                 <span id="outputDiameter" class="input-group-text"></span>
               </div>
             </div>
-            <!-- Feed input -->
+            <!-- Feed -->
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">Feed</span>
@@ -284,7 +283,7 @@
                 <span id="outputFeed" class="input-group-text"></span>
               </div>
             </div>
-            <!-- Distance input -->
+            <!-- Distance -->
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">Travel</span>
@@ -335,6 +334,7 @@
                 <input id="PointAxis1" type="text" class="form-control" placeholder="Y">
                 <input id="PointAxis2" type="text" class="form-control" placeholder="Z">
               </div>
+              <!-- Result  -->
               <div class="input-group output-only d-sm-flex d-block wrap">
                 <div class="input-group-prepend d-sm-flex d-block">
                   <span class="input-group-text">Result</span>
@@ -346,6 +346,7 @@
               </div>
             </form>
           </div>
+          <!-- Graphical output  -->
           <div class="col-auto mx-auto">
             <canvas id="canvas2" width="150" height="150"></canvas>
           </div>
