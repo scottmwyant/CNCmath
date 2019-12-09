@@ -25,20 +25,13 @@
   <link rel="apple-touch-icon" sizes="144x144" href="assets/icon-144x144.png" />
   <link rel="apple-touch-icon" sizes="152x152" href="assets/icon-152x152.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180x180.png" />
-  <link rel="apple-touch-startup-image" href="assets/splash-port-0640x1136.png"
-    media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" />
-  <link rel="apple-touch-startup-image" href="assets/splash-port-0750x1334.png"
-    media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" />
-  <link rel="apple-touch-startup-image" href="assets/splash-port-1242x2208.png"
-    media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)" />
-  <link rel="apple-touch-startup-image" href="assets/splash-port-1125x2436.png"
-    media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" />
-  <link rel="apple-touch-startup-image" href="assets/splash-port-1536x2048.png"
-    media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" />
-  <link rel="apple-touch-startup-image" href="assets/splash-port-1668x2224.png"
-    media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" />
-  <link rel="apple-touch-startup-image" href="assets/splash-port-2048x2732.png"
-    media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" />
+  <link rel="apple-touch-startup-image" href="assets/splash-port-0640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" />
+  <link rel="apple-touch-startup-image" href="assets/splash-port-0750x1334.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" />
+  <link rel="apple-touch-startup-image" href="assets/splash-port-1242x2208.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)" />
+  <link rel="apple-touch-startup-image" href="assets/splash-port-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" />
+  <link rel="apple-touch-startup-image" href="assets/splash-port-1536x2048.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" />
+  <link rel="apple-touch-startup-image" href="assets/splash-port-1668x2224.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" />
+  <link rel="apple-touch-startup-image" href="assets/splash-port-2048x2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" />
 
   <style>
     body {
@@ -166,240 +159,201 @@
 
     <section id="DrillPoint" class="card">
       <div class="card-body">
-        
-          <h2 class="card-title">Drill Point <a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
-          <p class="helpText">Input the tool diameter and the included angle. Output is the length as measured along the axis
-            of the tool, from the tip to the full diameter. The angle input assumes degrees, input radians using '2.44rad'.
-            Diameter assumes decimal inch input, you can also input fractional '1/4' or metric '6.35mm'. </p>
-        
-      
-
-      <div class="row">
-        <div class="col mx-auto">
-          <div class="row">
-
-            <!-- Drill Point Applet -->
-            <div class="col-md mx-auto">
-
-              <!-- Drill Point Input -->
-              <form>
-
-                <!-- Angle Input  -->
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Angle</span>
+        <h2 class="card-title">Drill Point<a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
+        <p class="helpText">Input the tool diameter and the included angle. Output is the length as measured along the axis
+          of the tool, from the tip to the full diameter. The angle input assumes degrees, input radians using '2.44rad'.
+          Diameter assumes decimal inch input, you can also input fractional '1/4' or metric '6.35mm'. </p>
+        <div class="row">
+          <div class="col mx-auto">
+            <div class="row">
+              <!-- Drill Point Applet -->
+              <div class="col-md mx-auto">
+                <!-- Drill Point Input -->
+                <form>
+                  <!-- Angle Input  -->
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Angle</span>
+                    </div>
+                    <input id="drillPointAngle" type="text" class="form-control" placeholder="140">
                   </div>
-                  <input id="drillPointAngle" type="text" class="form-control" placeholder="140">
-                </div>
-
-                <!-- Diameter Input  -->
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Diameter</span>
+                  <!-- Diameter Input  -->
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Diameter</span>
+                    </div>
+                    <input id="drillPointDiameter" type="text" class="form-control" placeholder=".250">
                   </div>
-                  <input id="drillPointDiameter" type="text" class="form-control" placeholder=".250">
-                </div>
-
-                <!-- Result -->
-                <div class="input-group output-only d-sm-flex d-block wrap">
-                  <div class="input-group-prepend d-sm-flex d-block">
-                    <span class="input-group-text">Tip Length</span>
+                  <!-- Result -->
+                  <div class="input-group output-only d-sm-flex d-block wrap">
+                    <div class="input-group-prepend d-sm-flex d-block">
+                      <span class="input-group-text">Tip Length</span>
+                    </div>
+                    <div class="input-group-append d-block" style="flex-grow: 1">
+                      <span id="drillPointTip" class="input-group-text">0.0455</span>
+                    </div>
                   </div>
-                  <div class="input-group-append d-block" style="flex-grow: 1">
-                    <span id="drillPointTip" class="input-group-text">0.0455</span>
-                  </div>
-                </div>
-
-              </form>
-
+                </form>
+              </div>
             </div>
-
           </div>
         </div>
-      </div>
       </div>
     </section>
 
     <section id="UnitCircle" class="card">
       <div class="card-body">
-      
-          <h2 class="card-title">Unit Circle <a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
-          <p class="helpText">The unit circle is a simple visualization of cosine and sine. The angle input assumes degrees,
-            input radians using '2.44rad'. The scale input is unitless.</p>
-      
-      <div class="row">
-        <div class="col mx-auto">
-          <div class="row">
-
-            <!-- Unit Circle Applet -->
-            <div class="col-md mx-auto my-auto">
-
-              <!-- Unit circle input -->
-              <form>
-
-                <!-- Angle Input  -->
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Angle</span>
+        <h2 class="card-title">Unit Circle<a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
+        <p class="helpText">The unit circle is a simple visualization of cosine and sine. The angle input assumes degrees,
+          input radians using '2.44rad'. The scale input is unitless.</p>
+        <div class="row">
+          <div class="col mx-auto">
+            <div class="row">
+              <!-- Unit Circle Applet -->
+              <div class="col-md mx-auto my-auto">
+                <!-- Unit circle input -->
+                <form>
+                  <!-- Angle Input  -->
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Angle</span>
+                    </div>
+                    <input id="myAngle" type="text" class="form-control" placeholder="0">
                   </div>
-                  <input id="myAngle" type="text" class="form-control" placeholder="0">
-                </div>
-
-                <!-- Length Input  -->
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Scale</span>
+                  <!-- Length Input  -->
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Scale</span>
+                    </div>
+                    <input id="myLength" type="text" class="form-control" placeholder="1">
                   </div>
-                  <input id="myLength" type="text" class="form-control" placeholder="1">
-                </div>
-
-                <div class="input-group output-only d-sm-flex d-block wrap">
-                  <div class="input-group-prepend d-sm-flex d-block">
-                    <span class="input-group-text">Cos, Sin</span>
+                  <div class="input-group output-only d-sm-flex d-block wrap">
+                    <div class="input-group-prepend d-sm-flex d-block">
+                      <span class="input-group-text">Cos, Sin</span>
+                    </div>
+                    <div class="input-group-append" style="display: block; flex: 1 1 auto">
+                      <span class="input-group-text" style="justify-content: center;">
+                        <div>&lt <span id="outputCOS">1.0000</span>, <span id="outputSIN">0.0000</span> &gt</div>
+                      </span>
+                    </div>
                   </div>
-                  <div class="input-group-append" style="display: block; flex: 1 1 auto">
-                    <span class="input-group-text" style="justify-content: center;">
-                      <div>&lt <span id="outputCOS">1.0000</span>, <span id="outputSIN">0.0000</span> &gt</div>
-                    </span>
-                  </div>
-                </div>
-
-              </form>
-
+                </form>
+              </div>
+              <!-- Graphical output -->
+              <div class="col-auto mx-auto">
+                <canvas id="canvas1" width="150" height="150"></canvas>
+              </div>
             </div>
-
-            <!-- Graphical output -->
-            <div class="col-auto mx-auto">
-              <canvas id="canvas1" width="150" height="150"></canvas>
-            </div>
-
           </div>
         </div>
-      </div>
       </div>
     </section>
 
     <section id="FeedAndSpeed" class="card">
       <div class="card-body">
-      
-          <h2 class="card-title">Speed &amp; Feed<a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
-          <p class="helpText">Convert between spindle speed (revs/min, rpm) and surface speed (feet/min, sfm). Convert feed
-            between inches/rev (ipr) and inches/minute (ipm). Diameter input is assumed to be decimal inch, optionally enter
-            fractional inch '1/4' or metric '6mm'.</p>
-      
-      <div class="row">
-
-        <!-- Speed and Feed Applet -->
-        <form class="col mx-auto">
-
-          <!-- Speed input -->
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Speed</span>
+        <h2 class="card-title">Speed &amp; Feed<a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
+        <p class="helpText">Convert between spindle speed (revs/min, rpm) and surface speed (feet/min, sfm). Convert feed
+          between inches/rev (ipr) and inches/minute (ipm). Diameter input is assumed to be decimal inch, optionally enter
+          fractional inch '1/4' or metric '6mm'.</p>
+        <div class="row">
+          <!-- Speed and Feed Applet -->
+          <form class="col mx-auto">
+            <!-- Speed input -->
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Speed</span>
+              </div>
+              <input id="speedKnown" type="text" class="form-control" placeholder="200sfm">
+              <div class="input-group-append">
+                <span id="outputSpeed" class="input-group-text"></span>
+              </div>
             </div>
-            <input id="speedKnown" type="text" class="form-control" placeholder="200sfm">
-            <div class="input-group-append">
-              <span id="outputSpeed" class="input-group-text"></span>
+            <!-- Diameter input -->
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Diameter</span>
+              </div>
+              <input id="speedDiameter" type="text" class="form-control" placeholder=".250">
+              <div class="input-group-append">
+                <span id="outputDiameter" class="input-group-text"></span>
+              </div>
             </div>
-          </div>
-
-          <!-- Diameter input -->
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Diameter</span>
+            <!-- Feed input -->
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Feed</span>
+              </div>
+              <input id="feedKnown" type="text" class="form-control" placeholder=".003ipr">
+              <div class="input-group-append">
+                <span id="outputFeed" class="input-group-text"></span>
+              </div>
             </div>
-            <input id="speedDiameter" type="text" class="form-control" placeholder=".250">
-            <div class="input-group-append">
-              <span id="outputDiameter" class="input-group-text"></span>
+            <!-- Distance input -->
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Travel</span>
+              </div>
+              <input id="travel" type="text" class="form-control" placeholder="1">
+              <div class="input-group-append">
+                <span id="outputTime" class="input-group-text"></span>
+              </div>
             </div>
-          </div>
-
-          <!-- Feed input -->
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Feed</span>
-            </div>
-            <input id="feedKnown" type="text" class="form-control" placeholder=".003ipr">
-            <div class="input-group-append">
-              <span id="outputFeed" class="input-group-text"></span>
-            </div>
-          </div>
-
-          <!-- Distance input -->
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">Travel</span>
-            </div>
-            <input id="travel" type="text" class="form-control" placeholder="1">
-            <div class="input-group-append">
-              <span id="outputTime" class="input-group-text"></span>
-            </div>
-          </div>
-
-        </form>
-
-      </div>
+          </form>
+        </div>
       </div>
     </section>
 
     <section id="RotaryPositioning4" class="card">
       <div class="card-body">
-      
-          <h2 class="card-title">4th Axis<a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
-          <p class="helpText">Calculate where a point lands after a given rotation is applied. The point's initial location
-            must be known and the location of the axis of rotation must be known.</p>
-      
-      <div class="row mx-auto">
-        <div class="col-md mx-auto my-auto">
-          <form>
 
-            <!-- Axis Configuration -->
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Rotary axis</span>
+        <h2 class="card-title">4th Axis<a class="helpLink" href="#" onclick="app.helpToggle(event)">help</a></h2>
+        <p class="helpText">Calculate where a point lands after a given rotation is applied. The point's initial location
+          must be known and the location of the axis of rotation must be known.</p>
+        <div class="row mx-auto">
+          <div class="col-md mx-auto my-auto">
+            <form>
+              <!-- Axis Configuration -->
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Rotary axis</span>
+                </div>
+                <select class="form-control" id="axisLabel">
+                  <option selected="selected">A</option>
+                  <option>B</option>
+                </select>
+                <input id="axisAngle" type="text" class="form-control" placeholder="α">
               </div>
-              <select class="form-control" id="axisLabel">
-                <option selected="selected">A</option>
-                <option>B</option>
-              </select>
-              <input id="axisAngle" type="text" class="form-control" placeholder="α">
-            </div>
-
-            <!-- Machine Zero to Center-of-Rotation  -->
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Location of axis</span>
+              <!-- Machine Zero to Center-of-Rotation  -->
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Location of axis</span>
+                </div>
+                <input id="TranslationAxis1" type="text" class="form-control" placeholder="Y">
+                <input id="TranslationAxis2" type="text" class="form-control" placeholder="Z">
               </div>
-              <input id="TranslationAxis1" type="text" class="form-control" placeholder="Y">
-              <input id="TranslationAxis2" type="text" class="form-control" placeholder="Z">
-            </div>
-
-            <!-- Center-of-Rotation to the Point-of-Interest -->
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">Axis to point</span>
+              <!-- Center-of-Rotation to the Point-of-Interest -->
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Axis to point</span>
+                </div>
+                <input id="PointAxis1" type="text" class="form-control" placeholder="Y">
+                <input id="PointAxis2" type="text" class="form-control" placeholder="Z">
               </div>
-              <input id="PointAxis1" type="text" class="form-control" placeholder="Y">
-              <input id="PointAxis2" type="text" class="form-control" placeholder="Z">
-            </div>
-
-            <div class="input-group output-only d-sm-flex d-block wrap">
-              <div class="input-group-prepend d-sm-flex d-block">
-                <span class="input-group-text">Result</span>
+              <div class="input-group output-only d-sm-flex d-block wrap">
+                <div class="input-group-prepend d-sm-flex d-block">
+                  <span class="input-group-text">Result</span>
+                </div>
+                <div class="input-group-append" style="display: block; flex: 1 1 auto;">
+                  <span id="outputRotation" class="input-group-text" style="justify-content: center;">&lt X, Y, Z
+                    &gt</span>
+                </div>
               </div>
-              <div class="input-group-append" style="display: block; flex: 1 1 auto;">
-                <span id="outputRotation" class="input-group-text" style="justify-content: center;">&lt X, Y, Z
-                  &gt</span>
-              </div>
-            </div>
-
-          </form>
+            </form>
+          </div>
+          <div class="col-auto mx-auto">
+            <canvas id="canvas2" width="150" height="150"></canvas>
+          </div>
         </div>
-
-        <div class="col-auto mx-auto">
-          <canvas id="canvas2" width="150" height="150"></canvas>
-        </div>
-      </div>
       </div>
     </section>
 
