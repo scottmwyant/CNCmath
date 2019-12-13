@@ -3,9 +3,6 @@
 */
 :root{
   --header-background: rgb(40, 44, 58);
-  --app-calculation: rgb(255,255,240); /*original yellow */
-  --app-calculation: rgb(250, 255, 189); /* yellow autofill highlight iOS*/
-  --app-calculation: rgba(233, 236, 239, 0.3); /* input-group-prepend background-color partially transparent */
   --app-calculation: rgb(233, 236, 239); /*input-group-prepend background-color*/
 }
 
@@ -15,7 +12,7 @@
 body {
   position: relative;
   min-height: 100vh;
-  padding-bottom: 170px; /* Should be equal to the height of your footer */
+  padding-bottom: 120px; /* Should be equal to the height of your footer */
 }
 
 /*
@@ -71,7 +68,6 @@ footer.row{
   border-top: 1px solid #dee2e6;
   padding-top: 3rem;
   padding-bottom: 3rem;
-  margin-top: 1.5rem;
   text-align: center;
 } 
 footer a{
