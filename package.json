@@ -1,0 +1,29 @@
+{
+  "name": "cncmath",
+  "version": "0.0.1",
+  "description": "Used to solve triangles given three data points.",
+  "main": "feat-trig/lib.js",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.0.0"
+  },
+  "scripts": {
+    "test": "echo npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scottmwyant/cncmath.git"
+  },
+  "keywords": [
+    "triangle",
+    "trig"
+  ],
+  "author": "scottmwyant",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scottmwyant/cncmath/issues"
+  },
+  "homepage": "https://github.com/scottmwyant/cncmath#readme",
+  "private": true
+}

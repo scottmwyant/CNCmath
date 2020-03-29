@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>CNC math</title>
+  <script src="scripts/site.js"></script>
+
+  <style>
+    form {
+      margin-top: 30px;
+      margin-bottom: 30px;
+      max-width: 400px;
+    }
+
+    .output {
+      color: blue;
+      background-color: lightgray;
+    }
+
+    form>div.line {
+      padding: 10px;
+      display: flex;
+    }
+
+    form>div.line>span.label {
+      margin-right: 8px;
+    }
+
+    form>div.line>input {
+      flex: 1 0 auto;
+      box-sizing: border-box;
+    }
+
+    form>div.line>input.angle {
+      margin-left: -1px;
+    }
+
+    form input {
+      border: thin solid gray;
+      padding: 2px;
+    }
+  </style>
+
+</head>
+
+<body>
+  <h1>TrigSolver</h1>
+  <form id="TrigSolver">
+    <table>
+      <tr>
+        <th>Lengths</th>
+        <th>Angles</th>
+      </tr>
+      <tr>
+        <td><input class="length" id="lengthA" placeholder="3"></td>
+        <td><input class="angle output" id="angleA" readonly></td>
+      </tr>
+      <tr>
+        <td><input class="length" id="lengthB" placeholder="4"></td>
+        <td><input class="angle output" id="angleB" readonly></td>
+      </tr>
+      <tr>
+        <td><input class="length" id="lengthC" placeholder="5"></td>
+        <td><input class="angle output" id="angleC" readonly></td>
+      </tr>
+    </table>
+  </form>
+  <span id="solution"></span>
+  <span id="status"></span>
+  <script type="module" src="./trig.js"></script>
+</body>
